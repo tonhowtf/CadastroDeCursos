@@ -1,4 +1,4 @@
-package wtf.tonho.CadastroDeCursos;
+package wtf.tonho.CadastroDeCursos.Cursos;
 
 
 import org.springframework.web.bind.annotation.GetMapping;
