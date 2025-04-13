@@ -3,10 +3,18 @@ package wtf.tonho.CadastroDeCursos.Cursos;
 
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
+
 
 @RestController
-@RequestMapping
+@RequestMapping("/cursos")
 public class CursoController {
+
+    private CursoService cursoService;
+
+    public CursoController(CursoService cursoService) {
+        this.cursoService = cursoService;
+    }
 
     @GetMapping("/boasvindas")
     public String boasVindas() {
@@ -21,12 +29,12 @@ public class CursoController {
     }
 
     // Mostrar todos os Cursos (read)
-    @GetMapping("/todos")
-    public String listarCursos() {
-        return "Lista de cursos";
+    @GetMapping("/listar")
+    public List<CursoModel> listarCursos() {
+        return cursoService.listarCursos();
     }
     // Procurar Curso por ID (Read)
-    @GetMapping("/todosID")
+    @GetMapping("/listarID")
     public String cursoPorId() {
         return "Lista de cursos";
     }
