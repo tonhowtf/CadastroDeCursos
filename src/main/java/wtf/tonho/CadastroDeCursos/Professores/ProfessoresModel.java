@@ -1,5 +1,6 @@
 package wtf.tonho.CadastroDeCursos.Professores;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -26,6 +27,7 @@ public class ProfessoresModel {
     private String telefone;
 
     @OneToMany(mappedBy = "professor")
+    @JsonIgnore
     private List<CursoModel> cursos;
 
 }

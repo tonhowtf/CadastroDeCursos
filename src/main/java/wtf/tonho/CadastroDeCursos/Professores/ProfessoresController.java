@@ -3,7 +3,7 @@ package wtf.tonho.CadastroDeCursos.Professores;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
-@RequestMapping("professores")
+@RequestMapping("/professores")
 public class ProfessoresController {
 
     @PostMapping("/criar")
@@ -11,12 +11,12 @@ public class ProfessoresController {
         return "Criado com sucesso";
     }
 
-    @GetMapping("/todos")
+    @GetMapping("/listar")
     public String listarProfessores() {
         return "Lista de professores";
     }
 
-    @GetMapping("/todosID")
+    @GetMapping("/listarID")
     public String professoresPorId() {
         return "Lista de professores";
     }
