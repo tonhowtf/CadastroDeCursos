@@ -34,9 +34,9 @@ public class CursoController {
         return cursoService.listarCursos();
     }
     // Procurar Curso por ID (Read)
-    @GetMapping("/listarID")
-    public String cursoPorId() {
-        return "Lista de cursos";
+    @GetMapping("/listar/{id}")
+    public CursoModel listarCursoPorId(@PathVariable Long id) {
+        return cursoService.listarCursoPorId(id);
     }
     // Alterar dados dos Cursos (UPDATE)
     @PutMapping("/alterarID")
