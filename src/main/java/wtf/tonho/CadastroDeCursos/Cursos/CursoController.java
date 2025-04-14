@@ -24,8 +24,8 @@ public class CursoController {
 
     // Adicionar Curso (Create)
     @PostMapping("/criar")
-    public String criarCurso() {
-        return "Criado com sucesso";
+    public CursoModel criarCurso(@RequestBody CursoModel curso) {
+        return cursoService.criarCurso(curso);
     }
 
     // Mostrar todos os Cursos (read)
@@ -44,8 +44,8 @@ public class CursoController {
         return "Alterado com sucesso";
     }
     // Deletar Curso (DELETE)
-    @DeleteMapping("/deletarID")
-    public String deletarCursoPorID() {
-        return "Deletado com sucesso";
+    @DeleteMapping("/deletar/{id}")
+    public void deletarCursoPorId(@PathVariable Long id) {
+        cursoService.deletarCursoPorId(id);
     }
 }

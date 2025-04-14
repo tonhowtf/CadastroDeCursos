@@ -22,4 +22,13 @@ public class CursoService {
         Optional<CursoModel> cursoPorId = cursoRepository.findById(id);
         return cursoPorId.orElse(null);
     }
+
+    public CursoModel criarCurso(CursoModel curso){
+        return cursoRepository.save(curso);
+    }
+
+    public void deletarCursoPorId(Long id){
+        cursoRepository.deleteById(id);
+    }
+
 }
