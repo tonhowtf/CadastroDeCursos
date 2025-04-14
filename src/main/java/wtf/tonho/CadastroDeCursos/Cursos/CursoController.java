@@ -39,9 +39,9 @@ public class CursoController {
         return cursoService.listarCursoPorId(id);
     }
     // Alterar dados dos Cursos (UPDATE)
-    @PutMapping("/alterarID")
-    public String alterarCursoPorID() {
-        return "Alterado com sucesso";
+    @PutMapping("/alterar/{id}")
+    public CursoModel alterarCursoPorID(@PathVariable Long id, @RequestBody CursoModel curso) {
+        return cursoService.alterarCursoPorId(id, curso);
     }
     // Deletar Curso (DELETE)
     @DeleteMapping("/deletar/{id}")

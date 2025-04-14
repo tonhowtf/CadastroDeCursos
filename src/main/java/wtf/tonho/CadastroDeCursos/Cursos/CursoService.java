@@ -31,4 +31,12 @@ public class CursoService {
         cursoRepository.deleteById(id);
     }
 
+    public CursoModel alterarCursoPorId(Long id, CursoModel curso){
+        if (cursoRepository.existsById(id)) {
+            curso.setId(id);
+            return cursoRepository.save(curso);
+        }
+        return null;
+    }
+
 }
