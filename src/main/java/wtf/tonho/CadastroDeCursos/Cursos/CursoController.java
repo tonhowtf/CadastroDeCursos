@@ -24,23 +24,23 @@ public class CursoController {
 
     // Adicionar Curso (Create)
     @PostMapping("/criar")
-    public CursoModel criarCurso(@RequestBody CursoModel curso) {
-        return cursoService.criarCurso(curso);
+    public CursoDTO criarCurso(@RequestBody CursoDTO cursoDTO){
+        return cursoService.criarCurso(cursoDTO);
     }
 
     // Mostrar todos os Cursos (read)
     @GetMapping("/listar")
-    public List<CursoModel> listarCursos() {
+    public List<CursoDTO> listarCursos() {
         return cursoService.listarCursos();
     }
     // Procurar Curso por ID (Read)
     @GetMapping("/listar/{id}")
-    public CursoModel listarCursoPorId(@PathVariable Long id) {
+    public CursoDTO listarCursoPorId(@PathVariable Long id) {
         return cursoService.listarCursoPorId(id);
     }
     // Alterar dados dos Cursos (UPDATE)
     @PutMapping("/alterar/{id}")
-    public CursoModel alterarCursoPorID(@PathVariable Long id, @RequestBody CursoModel curso) {
+    public CursoDTO alterarCursoPorID(@PathVariable Long id, @RequestBody CursoDTO curso) {
         return cursoService.alterarCursoPorId(id, curso);
     }
     // Deletar Curso (DELETE)
