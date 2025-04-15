@@ -2,7 +2,7 @@
 # 🎓 Cadastro de Cursos
 
 <div align="center">
-  <img src="CadastroDeCursos.png" alt="Logo do Projeto" width="200"/>
+  <img src="CadastroDeCursos.png" alt="Logo do Projeto" width="500"/>
   <h3>Uma aplicação em Spring Boot para gerenciar cursos e professores</h3>
   <p>
     <img src="https://img.shields.io/badge/Spring_Boot-2.7.5-6DB33F?style=for-the-badge&logo=springboot&logoColor=white" />
