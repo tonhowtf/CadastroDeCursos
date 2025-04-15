@@ -24,6 +24,7 @@ public class CursoModel {
     @ManyToOne
     @JoinColumn(name = "professor_id")
     private ProfessoresModel professor;
+    private int horas;
 
 
 }
