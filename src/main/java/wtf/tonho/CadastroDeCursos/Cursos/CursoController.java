@@ -19,20 +19,20 @@ public class CursoController {
         this.cursoService = cursoService;
     }
 
-    // Adicionar Curso (Create)
+
     @PostMapping("/criar")
     public ResponseEntity<String> criarCurso(@RequestBody CursoDTO curso) {
         CursoDTO cursoDTO = cursoService.criarCurso(curso);
         return ResponseEntity.status(HttpStatus.CREATED).body("Curso criado com sucesso! ID: " + cursoDTO.getId());
     }
 
-    // Mostrar todos os Cursos (read)
+
     @GetMapping("/listar")
     public ResponseEntity<List<CursoDTO>> listarCursos() {
         List<CursoDTO> cursos = cursoService.listarCursos();
         return ResponseEntity.status(HttpStatus.OK).body(cursos);
     }
-    // Procurar Curso por ID (Read)
+
     @GetMapping("/listar/{id}")
     public ResponseEntity<?> listarCursoPorId(@PathVariable Long id) {
         CursoDTO curso = cursoService.listarCursoPorId(id);
