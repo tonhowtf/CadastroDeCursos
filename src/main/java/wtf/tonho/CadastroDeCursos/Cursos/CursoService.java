@@ -1,40 +1,48 @@
 package wtf.tonho.CadastroDeCursos.Cursos;
 
 import org.springframework.stereotype.Service;
-
 import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 @Service
 public class CursoService {
 
     private CursoRepository cursoRepository;
+    private CursoMapper cursoMapper;
 
-    public CursoService(CursoRepository cursoRepository) {
+    public CursoService(CursoRepository cursoRepository, CursoMapper cursoMapper) {
         this.cursoRepository = cursoRepository;
+        this.cursoMapper = cursoMapper;
     }
 
-    public List<CursoModel> listarCursos(){
-        return cursoRepository.findAll();
+    public List<CursoDTO> listarCursos(){
+       List<CursoModel> cursos = cursoRepository.findAll();
+       return cursos.stream().map(cursoMapper::map).collect(Collectors.toList());
     }
 
-    public CursoModel listarCursoPorId(Long id){
+    public CursoDTO listarCursoPorId(Long id){
         Optional<CursoModel> cursoPorId = cursoRepository.findById(id);
-        return cursoPorId.orElse(null);
+        return cursoPorId.map(cursoMapper::map).orElse(null);
     }
 
-    public CursoModel criarCurso(CursoModel curso){
-        return cursoRepository.save(curso);
+    public CursoDTO criarCurso(CursoDTO cursoDTO){
+        CursoModel curso = cursoMapper.map(cursoDTO);
+        cursoRepository.save(curso);
+        return cursoMapper.map(curso);
     }
 
     public void deletarCursoPorId(Long id){
         cursoRepository.deleteById(id);
     }
 
-    public CursoModel alterarCursoPorId(Long id, CursoModel curso){
-        if (cursoRepository.existsById(id)) {
-            curso.setId(id);
-            return cursoRepository.save(curso);
+    public CursoDTO alterarCursoPorId(Long id, CursoDTO cursoDTO){
+        Optional<CursoModel> cursoExistente = cursoRepository.findById(id);
+        if (cursoExistente.isPresent()) {
+            CursoModel cursoAtualizado = cursoMapper.map(cursoDTO);
+            cursoAtualizado.setId(id);
+            CursoModel cursoSalvo = cursoRepository.save(cursoAtualizado);
+            return cursoMapper.map(cursoSalvo);
         }
         return null;
     }
