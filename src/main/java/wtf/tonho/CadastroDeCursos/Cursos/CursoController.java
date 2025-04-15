@@ -1,6 +1,9 @@
 package wtf.tonho.CadastroDeCursos.Cursos;
 
 
+import org.apache.coyote.Response;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -16,36 +19,48 @@ public class CursoController {
         this.cursoService = cursoService;
     }
 
-    @GetMapping("/boasvindas")
-    public String boasVindas() {
-        return "Essa é minha primeira mensagem nessa rota";
-    }
-
-
     // Adicionar Curso (Create)
     @PostMapping("/criar")
-    public CursoDTO criarCurso(@RequestBody CursoDTO cursoDTO){
-        return cursoService.criarCurso(cursoDTO);
+    public ResponseEntity<String> criarCurso(@RequestBody CursoDTO curso) {
+        CursoDTO cursoDTO = cursoService.criarCurso(curso);
+        return ResponseEntity.status(HttpStatus.CREATED).body("Curso criado com sucesso! ID: " + cursoDTO.getId());
     }
 
     // Mostrar todos os Cursos (read)
     @GetMapping("/listar")
-    public List<CursoDTO> listarCursos() {
-        return cursoService.listarCursos();
+    public ResponseEntity<List<CursoDTO>> listarCursos() {
+        List<CursoDTO> cursos = cursoService.listarCursos();
+        return ResponseEntity.status(HttpStatus.OK).body(cursos);
     }
     // Procurar Curso por ID (Read)
     @GetMapping("/listar/{id}")
-    public CursoDTO listarCursoPorId(@PathVariable Long id) {
-        return cursoService.listarCursoPorId(id);
+    public ResponseEntity<?> listarCursoPorId(@PathVariable Long id) {
+        CursoDTO curso = cursoService.listarCursoPorId(id);
+        if (curso != null) {
+            return ResponseEntity.ok(curso);
+        } else {
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Curso com o id: " + id + " Não existe nos registros");
+        }
     }
-    // Alterar dados dos Cursos (UPDATE)
+
     @PutMapping("/alterar/{id}")
-    public CursoDTO alterarCursoPorID(@PathVariable Long id, @RequestBody CursoDTO curso) {
-        return cursoService.alterarCursoPorId(id, curso);
+    public ResponseEntity<?> alterarCursoPorID(@PathVariable Long id, @RequestBody CursoDTO cursoAtualizado) {
+
+        CursoDTO curso = cursoService.alterarCursoPorId(id, cursoAtualizado);
+        if (curso != null) {
+            return ResponseEntity.ok(curso);
+        } else {
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Curso com esse id: " + id + " Não foi encontrado");
+        }
     }
-    // Deletar Curso (DELETE)
+
     @DeleteMapping("/deletar/{id}")
-    public void deletarCursoPorId(@PathVariable Long id) {
-        cursoService.deletarCursoPorId(id);
+    public ResponseEntity<String> deletarCursoPorId(@PathVariable Long id) {
+        if (cursoService.listarCursoPorId(id) != null) {
+            cursoService.deletarCursoPorId(id);
+            return ResponseEntity.ok("Curso deletado com o ID: " + id + " deletado com sucesso!");
+        } else {
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body("O Curso com id " + id + " não foi encontrado");
+        }
     }
 }
