@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Tabela de Cursos</title>
+    <style>
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: #f8f9fa;
+            padding: 40px;
+            color: #333;
+        }
+
+        h1 {
+            text-align: center;
+            margin-bottom: 30px;
+            color: #2c3e50;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            background-color: white;
+            box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+            border-radius: 8px;
+            overflow: hidden;
+        }
+
+        thead {
+            background-color: #2c3e50;
+            color: white;
+        }
+
+        th, td {
+            padding: 14px 20px;
+            text-align: left;
+        }
+
+        tr:nth-child(even) {
+            background-color: #f2f2f2;
+        }
+
+        tr:hover {
+            background-color: #e9ecef;
+        }
+
+        a {
+            text-decoration: none;
+            padding: 8px 14px;
+            margin: 0 4px;
+            border-radius: 5px;
+            font-size: 14px;
+            color: white;
+            transition: background-color 0.3s ease;
+        }
+
+        a:nth-child(1) {
+            background-color: #3498db;
+        }
+
+        a:nth-child(1):hover {
+            background-color: #2980b9;
+        }
+
+        a:nth-child(2) {
+            background-color: #f1c40f;
+            color: #333;
+        }
+
+        a:nth-child(2):hover {
+            background-color: #d4ac0d;
+        }
+
+        a:nth-child(3) {
+            background-color: #e74c3c;
+        }
+
+        a:nth-child(3):hover {
+            background-color: #c0392b;
+        }
+
+        td:last-child {
+            white-space: nowrap;
+        }
+    </style>
+</head>
+<body>
+
+<h1>Lista de cursos</h1>
+
+<table>
+    <thead>
+    <tr>
+        <th>Id</th>
+        <th>Nome</th>
+        <th>Categoria</th>
+        <th>Habilidade</th>
+        <th>Horas</th>
+        <th>Professor</th>
+        <th>Ações</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    <tr th:each="curso : ${cursos}">
+        <td th:text="${curso.id}"></td>
+        <td th:text="${curso.nome}"></td>
+        <td th:text="${curso.categoria}"></td>
+        <td th:text="${curso.habilidade}"></td>
+        <td th:text="${curso.horas}"></td>
+        <td>
+            <span th:if="${curso.professor}">
+                <span th:text="${curso.professor.nome}"></span>
+            </span>
+        </td>
+        <td>
+            <a th:href="@{/cursos/ui/deletar/{id}(id=${curso.id})}">Deletar</a>
+        </td>
+    </tr>
+    </tbody>
+</table>
+
+</body>
+</html>

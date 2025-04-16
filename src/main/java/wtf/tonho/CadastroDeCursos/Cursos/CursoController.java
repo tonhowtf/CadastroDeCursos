@@ -1,6 +1,9 @@
 package wtf.tonho.CadastroDeCursos.Cursos;
 
 
+import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.responses.ApiResponse;
+import io.swagger.v3.oas.annotations.responses.ApiResponses;
 import org.apache.coyote.Response;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -28,12 +31,22 @@ public class CursoController {
 
 
     @GetMapping("/listar")
+    @Operation(summary = "Listar todos os cursos", description = "Essa rota lista todos os cursos")
+    @ApiResponses(value = {
+            @ApiResponse(responseCode = "200", description = "Cursos listado com sucesso"),
+            @ApiResponse(responseCode = "400", description = "Erro na listagem")
+    })
     public ResponseEntity<List<CursoDTO>> listarCursos() {
         List<CursoDTO> cursos = cursoService.listarCursos();
         return ResponseEntity.status(HttpStatus.OK).body(cursos);
     }
 
     @GetMapping("/listar/{id}")
+    @Operation(summary = "Vê informações sobre um curso", description = "Essa rota lista um curso selecionado por id")
+    @ApiResponses(value = {
+            @ApiResponse(responseCode = "200", description = "Curso listado com sucesso"),
+            @ApiResponse(responseCode = "400", description = "Erro na listagem")
+    })
     public ResponseEntity<?> listarCursoPorId(@PathVariable Long id) {
         CursoDTO curso = cursoService.listarCursoPorId(id);
         if (curso != null) {
