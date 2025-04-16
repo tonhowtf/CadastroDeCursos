@@ -8,8 +8,8 @@ import java.util.stream.Collectors;
 @Service
 public class CursoService {
 
-    private CursoRepository cursoRepository;
-    private CursoMapper cursoMapper;
+    private final CursoRepository cursoRepository;
+    private final CursoMapper cursoMapper;
 
     public CursoService(CursoRepository cursoRepository, CursoMapper cursoMapper) {
         this.cursoRepository = cursoRepository;
